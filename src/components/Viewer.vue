@@ -4,11 +4,11 @@
   </select>
   <div class="container">
     <div class="msg" v-for="(message, i) in messages" :key="'message' + i">
-      <div class="bubble" v-bind:class="{ alt: isPrimary(message.author) }">
+      <div class="bubble" v-bind:class="{ alt: isPrimary(message.author) && !isChained(i), follow: isChained(i) && !isPrimary(message.author), altfollow: isPrimary(message.author) && isChained(i) }">
         <div class="txt">
           <p class="name" v-if="!isChained(i)">{{ message.author }}</p>
           <span class="timestamp">{{ parseDate(message.date) }}</span>
-          <p class="message">{{ message.message }}</p>
+          <p class="message" v-bind:class="{follow: isChained(i)}">{{ message.message }}</p>
         </div>
         <div v-if="!isChained(i)" class="bubble-arrow" v-bind:class="{alt: isPrimary(message.author) }"></div>
       </div>
