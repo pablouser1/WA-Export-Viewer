@@ -10,7 +10,7 @@
           <span class="timestamp">{{ parseDate(message.date) }}</span>
           <p class="message">{{ message.message }}</p>
         </div>
-        <div v-if="!isChained(i)" class="bubble-arrow" v-bind:class="{alt: isPrimary }"></div>
+        <div v-if="!isChained(i)" class="bubble-arrow" v-bind:class="{alt: isPrimary(message.author) }"></div>
       </div>
     </div>
   </div>

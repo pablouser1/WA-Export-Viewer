@@ -16,6 +16,10 @@ yarn serve
 yarn build
 ```
 
+## TODO
+* Lazy load messages on scroll
+* Better CSS for UI
+
 ## Credits
 [WhatsApp 2017 Chat Style](https://codepen.io/makhras/pen/egqqoN) by Michael Akhras
 
