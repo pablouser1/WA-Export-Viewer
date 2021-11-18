@@ -1,4 +1,5 @@
-# exporttochat
+# Whatsapp Export Viewer
+Pretty-print a Whatsapp export .txt file.
 
 ## Project setup
 ```
@@ -15,10 +16,7 @@ yarn serve
 yarn build
 ```
 
-### Lints and fixes files
-```
-yarn lint
-```
+## Credits
+[WhatsApp 2017 Chat Style](https://codepen.io/makhras/pen/egqqoN) by Michael Akhras
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+[whatsapp-chat-parser](https://github.com/Pustur/whatsapp-chat-parser) by Loris Bettazza

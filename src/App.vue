@@ -1,27 +1,32 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <Select @newMessages="setMessages" />
+  <Viewer :messages="messages" v-if="messages.length" />
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import HelloWorld from './components/HelloWorld.vue'
+import { Message } from 'whatsapp-chat-parser/types/types'
+import Select from './components/Select.vue'
+import Viewer from './components/Viewer.vue'
 
 @Options({
   components: {
-    HelloWorld
+    Select, Viewer
   }
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  messages: Message[] = []
+  setMessages (messages: Message[]): void {
+    this.messages = []
+    console.log(`Loading ${messages.length} messages`)
+    this.messages = messages
+  }
+}
 </script>
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
