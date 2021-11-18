@@ -18,6 +18,7 @@ export default class App extends Vue {
   messages: Message[] = []
   setMessages (messages: Message[]): void {
     this.messages = []
+    // eslint-disable-next-line
     console.log(`Loading ${messages.length} messages`)
     this.messages = messages
   }
