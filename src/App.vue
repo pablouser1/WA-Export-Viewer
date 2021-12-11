@@ -1,6 +1,6 @@
 <template>
-  <Select @newMessages="setMessages" />
-  <Viewer :messages="messages" v-if="messages.length" />
+  <Select v-if="!messages.length" @newMessages="setMessages" />
+  <Viewer v-else :messages="messages" @reset="reset" />
 </template>
 
 <script lang="ts">
@@ -16,11 +16,16 @@ import Viewer from './components/Viewer.vue'
 })
 export default class App extends Vue {
   messages: Message[] = []
+
   setMessages (messages: Message[]): void {
     this.messages = []
     // eslint-disable-next-line
     console.log(`Loading ${messages.length} messages`)
     this.messages = messages
+  }
+
+  reset (): void {
+    this.messages = []
   }
 }
 </script>

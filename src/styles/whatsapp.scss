@@ -8,7 +8,7 @@ body {
   background: #ece5dd;
   font-family: "Helvetica Neue", Helvetica /*, sans-serif*/;
 }
-.container {
+.wa-container {
   width: 75%;
   margin: 0 auto;
 }
@@ -114,7 +114,7 @@ body {
 }
 
 @media only screen and (max-width: 450px) {
-  .container {
+  .wa-container {
     width: 100%;
   }
   .timestamp {

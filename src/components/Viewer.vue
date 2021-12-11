@@ -1,10 +1,25 @@
 <template>
-  <select v-model="active">
-    <option v-for="(participant, i) in participants" :key="'participant' + i" :value="participant">{{ participant }}</option>
-  </select>
   <div class="container">
+    <div class="field">
+      <label class="label">Choose active user</label>
+      <div class="control">
+        <div class="select">
+          <select v-model="active">
+            <option v-for="(participant, i) in participants" :key="'participant' + i" :value="participant">{{ participant }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <div class="control">
+        <button @click="reset" class="button is-danger">Choose another file</button>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="wa-container">
     <div class="msg" v-for="(message, i) in messages" :key="'message' + i">
-      <div class="bubble" v-bind:class="{ alt: isPrimary(message.author) && !isChained(i), follow: isChained(i) && !isPrimary(message.author), altfollow: isPrimary(message.author) && isChained(i) }">
+      <div class="bubble" :class="{ alt: isPrimary(message.author) && !isChained(i), follow: isChained(i) && !isPrimary(message.author), altfollow: isPrimary(message.author) && isChained(i) }">
         <div class="txt">
           <p class="name" v-if="!isChained(i)">{{ message.author }}</p>
           <span class="timestamp">{{ parseDate(message.date) }}</span>
@@ -23,7 +38,8 @@ import { Message } from 'whatsapp-chat-parser/types/types'
 @Options({
   props: {
     messages: Array
-  }
+  },
+  emits: ['reset']
 })
 export default class Viewer extends Vue {
   messages: Message[] = []
@@ -37,6 +53,10 @@ export default class Viewer extends Vue {
   refresh (): void {
     this.setParticipants()
     this.active = this.participants[0]
+  }
+
+  reset (): void {
+    this.$emit('reset')
   }
 
   setParticipants (): void {
