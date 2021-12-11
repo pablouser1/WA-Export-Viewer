@@ -20,7 +20,7 @@
           </div>
         </div>
         <div class="navbar-item">
-          <button @click="loadAll" class="button is-danger">Show all messages</button>
+          <button @click="viewAll" class="button is-danger">Show all messages</button>
         </div>
         <div class="navbar-item">
           <button @click="reset" class="button is-danger">Choose another file</button>
