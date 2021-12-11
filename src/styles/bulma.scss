@@ -6,7 +6,6 @@
 @import "../../node_modules/bulma/sass/base/_all.sass";
 
 // Elements
-@import "../../node_modules/bulma/sass/elements/box.sass";
 @import "../../node_modules/bulma/sass/elements/button.sass";
 @import "../../node_modules/bulma/sass/elements/container.sass";
 @import "../../node_modules/bulma/sass/elements/icon.sass";
@@ -20,10 +19,7 @@
 @import "../../node_modules/bulma/sass/form/tools.sass";
 
 // Components
-@import "../../node_modules/bulma/sass/components/menu.sass";
-
-// Grids
-@import "../../node_modules/bulma/sass/grid/columns.sass";
+@import "../../node_modules/bulma/sass/components/navbar.sass";
 
 // Layout
 @import "../../node_modules/bulma/sass/layout/_all.sass";

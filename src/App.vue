@@ -1,6 +1,6 @@
 <template>
   <Select v-if="!messages.length" @newMessages="setMessages" />
-  <Viewer v-else :messages="messages" @reset="reset" />
+  <Viewer v-else :totalMessages="messages" @reset="reset" />
 </template>
 
 <script lang="ts">

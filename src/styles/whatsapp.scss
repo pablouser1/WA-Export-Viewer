@@ -1,6 +1,6 @@
 // CREDITS: https://codepen.io/makhras/pen/egqqoN by Michael Akhras
 
-body {
+#wrapper {
   /*I ripped this image from the WhatsApp apk*/
   //background:url(https://i.imgur.com/HdbLL37.png);
 
@@ -8,6 +8,7 @@ body {
   background: #ece5dd;
   font-family: "Helvetica Neue", Helvetica /*, sans-serif*/;
 }
+
 .wa-container {
   width: 75%;
   margin: 0 auto;
