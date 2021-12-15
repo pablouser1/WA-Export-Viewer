@@ -14,12 +14,13 @@
 
 // Form
 @import "../../node_modules/bulma/sass/form/shared.sass";
+@import "../../node_modules/bulma/sass/form/input-textarea.sass";
 @import "../../node_modules/bulma/sass/form/select.sass";
 @import "../../node_modules/bulma/sass/form/file.sass";
 @import "../../node_modules/bulma/sass/form/tools.sass";
 
-// Components
-@import "../../node_modules/bulma/sass/components/navbar.sass";
+// Grids
+@import "../../node_modules/bulma/sass/grid/columns.sass";
 
 // Layout
 @import "../../node_modules/bulma/sass/layout/_all.sass";

@@ -1,36 +1,35 @@
 <template>
-  <nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-      <a role="button" @click="showNav = !showNav" class="navbar-burger" :class="{ 'is-active': showNav }" aria-label="menu" aria-expanded="false">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
-    </div>
-    <div class="navbar-menu" :class="{ 'is-active': showNav }">
-      <div class="navbar-start">
-        <!-- TODO ADD SEARCH -->
-      </div>
-      <div class="navbar-end">
-        <div class="navbar-item">
-          <div class="select">
-            <select v-model="active">
-              <option v-for="(participant, i) in participants" :key="'participant' + i" :value="participant">{{ participant }}</option>
-            </select>
+  <section id="wrapper" class="section">
+    <div class="columns is-mobile is-vcentered is-multiline">
+      <div class="column is-narrow">
+        <div class="field has-addons">
+          <div class="control">
+            <input v-model="date" class="input" type="date" />
+          </div>
+          <div class="control">
+            <button @click="searchByDate" class="button is-info">Search</button>
           </div>
         </div>
-        <div class="navbar-item">
-          <button @click="viewAll" class="button is-danger">Show all messages</button>
-        </div>
-        <div class="navbar-item">
-          <button @click="reset" class="button is-danger">Choose another file</button>
+      </div>
+      <div class="column is-narrow">
+        <div class="field">
+          <label class="label">Participants</label>
+          <div class="control">
+            <div class="select">
+              <select v-model="active">
+                <option v-for="(participant, i) in participants" :key="'participant' + i" :value="participant">{{ participant }}</option>
+              </select>
+            </div>
+          </div>
         </div>
       </div>
+      <div class="column is-narrow">
+        <button @click="viewAll" class="button is-danger">Show all messages</button>
+      </div>
     </div>
-  </nav>
-  <section id="wrapper" class="section">
+    <hr />
     <div id="wa-container" class="wa-container">
-      <div class="msg" v-for="(message, i) in viewedMessages" :key="'message' + i">
+      <div class="msg" :id="'message' + i" v-for="(message, i) in viewedMessages" :key="'message' + i">
         <div class="bubble" :class="{ alt: isPrimary(message.author) && !isChained(i), follow: isChained(i) && !isPrimary(message.author), altfollow: isPrimary(message.author) && isChained(i) }">
           <div class="txt">
             <p class="name" v-if="!isChained(i)">{{ message.author }}</p>
@@ -61,6 +60,7 @@ export default class Viewer extends Vue {
   active = ''
   count = 0
   showNav = false
+  date = ''
 
   reset (): void {
     this.$emit('reset')
@@ -118,10 +118,37 @@ export default class Viewer extends Vue {
 
   scroll (): void {
     window.onscroll = () => {
-      const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight
+      const bottomOfWindow = window.scrollY + window.innerHeight >= document.body.offsetHeight - 1000
       if (bottomOfWindow) {
         this.showMessages()
       }
+    }
+  }
+
+  searchByDate (): void {
+    const messageIndex = this.totalMessages.findIndex(message => {
+      return message.date.toDateString() === new Date(this.date).toDateString()
+    })
+    if (messageIndex !== -1) {
+      if (!document.getElementById(`message${messageIndex}`)) {
+        // Render all messages until reaching the message found + 30
+        this.showMessages(messageIndex + 30)
+      }
+      this.$nextTick(() => this.scrollToMessage(messageIndex))
+    } else {
+      alert('No message found')
+    }
+  }
+
+  scrollToMessage (index: number): void {
+    const msg = document.getElementById(`message${index}`)
+    if (msg) {
+      console.log(`Scrolling to message ${index}`)
+      msg.scrollIntoView({
+        behavior: 'smooth'
+      })
+    } else {
+      console.error(`Message ${index} does not exist`)
     }
   }
 
