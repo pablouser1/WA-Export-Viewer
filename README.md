@@ -20,6 +20,5 @@ yarn build
 * Better CSS for UI
 
 ## Credits
-[WhatsApp 2017 Chat Style](https://codepen.io/makhras/pen/egqqoN) by Michael Akhras
-
-[whatsapp-chat-parser](https://github.com/Pustur/whatsapp-chat-parser) by Loris Bettazza
+* [WhatsApp 2017 Chat Style](https://codepen.io/makhras/pen/egqqoN) by Michael Akhras
+* [whatsapp-chat-parser](https://github.com/Pustur/whatsapp-chat-parser) by Loris Bettazza

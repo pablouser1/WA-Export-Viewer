@@ -1,9 +1,12 @@
 import { createSignal, For, onCleanup, onMount } from 'solid-js';
+import type { Message } from 'whatsapp-chat-parser';
+import store from '../store';
 
-const Viewer = (props) => {
-  const [shownMessages, setShownMessages] = createSignal([]);
-  const [participants, setParticipants] = createSignal([]);
+const Viewer = () => {
+  const [shownMessages, setShownMessages] = createSignal([] as Message[]);
+  const [participants, setParticipants] = createSignal([] as string[]);
   const [active, setActive] = createSignal('');
+  const messages = store[0];
   let count = 0;
   let date = '';
 
@@ -14,19 +17,16 @@ const Viewer = (props) => {
       count = num;
     }
 
-    if (count > props.messages().length) {
-      count = props.messages().length;
+    if (count > messages.length) {
+      count = messages.length;
     }
-    setShownMessages(props.messages().slice(0, count));
+    setShownMessages(messages.slice(0, count));
   };
 
   const handleParticipants = () => {
-    let tempParticipants = [];
-    props.messages().map((message) => {
-      if (
-        !tempParticipants.includes(message.author) &&
-        message.author !== 'System'
-      ) {
+    let tempParticipants = [] as string[];
+    messages.map((message) => {
+      if (message.author && message.author !== 'System' && !tempParticipants.includes(message.author)) {
         tempParticipants.push(message.author);
       }
     });
@@ -34,7 +34,7 @@ const Viewer = (props) => {
   };
 
   // Check if last message was also made by the same author
-  const isChained = (index) => {
+  const isChained = (index: number) => {
     const last = index - 1;
     return (
       last >= 0 &&
@@ -43,24 +43,23 @@ const Viewer = (props) => {
   };
 
   // Check if the author is the active user (the one writing)
-  const isPrimary = (author) => {
+  const isPrimary = (author: string | null) => {
     return author === active();
   };
 
-  const parseDate = (date) => {
-    const options = {
+  const parseDate = (date: Date) => {
+    const userLang = navigator.language;
+    return date.toLocaleString(userLang, {
       hour: 'numeric',
       minute: 'numeric',
       year: 'numeric',
       month: 'numeric',
       day: 'numeric',
-    };
-    const userLang = navigator.language;
-    return date.toLocaleString(userLang, options);
+    });
   };
 
   const viewAll = () => {
-    setShownMessages(props.messages());
+    setShownMessages(messages);
   };
 
   const enableScroll = () => {
@@ -74,7 +73,7 @@ const Viewer = (props) => {
     };
   };
 
-  const scrollToMessage = (index) => {
+  const scrollToMessage = (index: number) => {
     const msg = document.getElementById(`message${index}`);
     if (msg) {
       console.log(`Scrolling to message ${index}`);
@@ -87,7 +86,7 @@ const Viewer = (props) => {
   };
 
   const searchByDate = () => {
-    const messageIndex = props.messages().findIndex((message) => {
+    const messageIndex = messages.findIndex((message) => {
       return message.date.toDateString() === new Date(date).toDateString();
     });
     if (messageIndex !== -1) {
@@ -99,10 +98,6 @@ const Viewer = (props) => {
     } else {
       alert('No message found');
     }
-  };
-
-  const goBack = () => {
-    props.setMessages([]);
   };
 
   onMount(() => {
@@ -163,9 +158,6 @@ const Viewer = (props) => {
           <div class='buttons'>
             <button onClick={viewAll} class='button is-danger'>
               Show all messages
-            </button>
-            <button onClick={goBack} class='button is-danger'>
-              Back
             </button>
           </div>
         </div>
