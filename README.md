@@ -1,4 +1,11 @@
 # Whatsapp Export Viewer
+> [!WARNING]
+> **This repository has moved to Codeberg!**
+> Development on GitHub has been discontinued, and this repository is now read-only.
+> 
+> New repository:
+> 🔗 **[codeberg.org/ferreiro/WA-Export-Viewer](https://codeberg.org/ferreiro/WA-Export-Viewer)**
+
 Pretty-print a Whatsapp export .txt file.
 
 ## Project setup
